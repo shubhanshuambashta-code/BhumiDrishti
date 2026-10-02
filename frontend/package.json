@@ -2,6 +2,7 @@
   "name": "bhumidrishti-frontend",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://shubhanshuambashta-code.github.io/BhumiDrishti",
   "description": "BhumiDrishti - GIS Land Acquisition Risk Intelligence Platform",
   "dependencies": {
     "react": "^18.2.0",
