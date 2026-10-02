@@ -122,6 +122,36 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setError(null);
     const stored = getStoredImported();
 
+    const isLocalhost = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+    const hasCustomApi = Boolean(process.env.REACT_APP_API_URL);
+
+    if (!isLocalhost && !hasCustomApi) {
+      setBackendOnline(false);
+      try {
+        const fallback = await import('../data/fallback.json');
+        const fallbackParcels = (fallback.parcels || []) as Parcel[];
+        const fallbackProjects = (fallback.projects || []) as Project[];
+
+        const existingIds = new Set(fallbackParcels.map(p => p.id));
+        const newFromStorage = stored.parcels.filter(p => !existingIds.has(p.id));
+        const combinedParcels = [...fallbackParcels, ...newFromStorage];
+
+        const projMap: Record<string, Project> = {};
+        fallbackProjects.forEach(p => { projMap[p.id] = p; });
+        stored.projects.forEach(p => { projMap[p.id] = p; });
+
+        const combinedProjects = Object.values(projMap);
+        setParcels(combinedParcels);
+        setProjects(combinedProjects);
+        setStatistics(calculateDerivedStats(combinedParcels, combinedProjects));
+      } catch {
+        setError('Unable to load data.');
+      } finally {
+        setLoading(false);
+      }
+      return;
+    }
+
     try {
       const [stats, parcelData] = await Promise.all([
         getStatistics(),

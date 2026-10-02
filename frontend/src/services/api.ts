@@ -4,11 +4,12 @@ import type {
   ApiResponse, DecisionItem, MLPrediction, RiskBreakdown
 } from '../types';
 
-const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+const isLocalhost = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+const BASE_URL = process.env.REACT_APP_API_URL || (isLocalhost ? 'http://localhost:3001/api' : '');
 
 const api = axios.create({
   baseURL: BASE_URL,
-  timeout: 15000,
+  timeout: isLocalhost ? 5000 : 1500,
   headers: { 'Content-Type': 'application/json' },
 });
 
