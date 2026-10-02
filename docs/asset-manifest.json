@@ -1,12 +1,11 @@
 {
   "files": {
     "main.css": "/BhumiDrishti/static/css/main.75161927.css",
-    "main.js": "/BhumiDrishti/static/js/main.d04bcf81.js",
-    "static/js/96.7e159649.chunk.js": "/BhumiDrishti/static/js/96.7e159649.chunk.js",
+    "main.js": "/BhumiDrishti/static/js/main.a8264670.js",
     "index.html": "/BhumiDrishti/index.html"
   },
   "entrypoints": [
     "static/css/main.75161927.css",
-    "static/js/main.d04bcf81.js"
+    "static/js/main.a8264670.js"
   ]
 }

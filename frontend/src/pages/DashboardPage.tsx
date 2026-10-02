@@ -18,32 +18,30 @@ ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarEle
 
 export default function DashboardPage() {
   const { statistics: stats, loading, error, backendOnline, refreshData, parcels } = useApp();
-  const [decisions, setDecisions] = useState<DecisionItem[]>([]);
+  const [decisions, setDecisions] = useState<DecisionItem[]>(() => {
+    return parcels
+      .filter(p => p.risk_level === 'Critical')
+      .sort((a, b) => b.risk_score - a.risk_score)
+      .slice(0, 5)
+      .map(p => ({
+        id: p.id,
+        priority: 'Critical' as const,
+        parcel_id: p.id,
+        project_name: p.project_name,
+        risk_score: p.risk_score,
+        risk_level: p.risk_level,
+        primary_factors: ['Legal disputes', 'Ownership complexity'],
+        recommended_action: 'Immediate legal and stakeholder review required.',
+        district: p.district,
+      }));
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
-    getDecisions().then(setDecisions).catch(() => {
-      // Generate from parcels
-      if (parcels.length > 0) {
-        const critical = parcels
-          .filter(p => p.risk_level === 'Critical')
-          .sort((a, b) => b.risk_score - a.risk_score)
-          .slice(0, 5)
-          .map(p => ({
-            id: p.id,
-            priority: 'Critical' as const,
-            parcel_id: p.id,
-            project_name: p.project_name,
-            risk_score: p.risk_score,
-            risk_level: p.risk_level,
-            primary_factors: ['Legal disputes', 'Ownership complexity'].filter(() => Math.random() > 0.3),
-            recommended_action: 'Immediate legal and stakeholder review required.',
-            district: p.district,
-          }));
-        setDecisions(critical);
-      }
-    });
-  }, [parcels]);
+    if (backendOnline) {
+      getDecisions().then(setDecisions).catch(() => {});
+    }
+  }, [backendOnline]);
 
   if (loading) return (
     <div className="loading-overlay">
