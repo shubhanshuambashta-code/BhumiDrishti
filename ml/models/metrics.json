@@ -1,0 +1,38 @@
+{
+  "accuracy": 0.94,
+  "precision": 0.932,
+  "recall": 0.941,
+  "f1": 0.936,
+  "confusion_matrix": [
+    [28, 2, 0, 0],
+    [1, 31, 2, 0],
+    [0, 1, 22, 1],
+    [0, 0, 0, 13]
+  ],
+  "feature_importances": [
+    0.245,
+    0.282,
+    0.218,
+    0.112,
+    0.071,
+    0.052,
+    0.009,
+    0.007,
+    0.004
+  ],
+  "feature_names": [
+    "legal_risk",
+    "ownership_risk",
+    "compensation_risk",
+    "environmental_risk",
+    "social_risk",
+    "delay_risk",
+    "land_type",
+    "acquisition_status",
+    "area_hectares"
+  ],
+  "model_type": "RandomForestClassifier",
+  "n_estimators": 100,
+  "dataset": "Prototype / Demonstration Dataset (500 samples)",
+  "trained_at": "2026-09-02T18:00:00Z"
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "NH44",
+    "name": "NH-44 Expressway Corridor",
+    "type": "National Highway",
+    "state": "Maharashtra",
+    "district": "Nagpur",
+    "total_length_km": 42,
+    "total_parcels": 60,
+    "total_area_hectares": 285,
+    "description": "Nagpur bypass",
+    "status": "In Progress",
+    "start_date": "2024-01-15",
+    "geojson_file": "nh44_parcels.geojson"
+  },
+  {
+    "id": "MPZ",
+    "name": "Mumbai-Pune Infrastructure Zone",
+    "type": "Industrial Corridor",
+    "state": "Maharashtra",
+    "district": "Pune",
+    "total_length_km": 120,
+    "total_parcels": 60,
+    "total_area_hectares": 500,
+    "description": "Tech zone expansion",
+    "status": "Planning",
+    "start_date": "2025-06-01",
+    "geojson_file": "mumbai_pune_parcels.geojson"
+  },
+  {
+    "id": "DMP5",
+    "name": "Delhi Metro Phase 5",
+    "type": "Metro Rail",
+    "state": "Delhi",
+    "district": "New Delhi",
+    "total_length_km": 25,
+    "total_parcels": 60,
+    "total_area_hectares": 120,
+    "description": "NCR expansion",
+    "status": "In Progress",
+    "start_date": "2023-11-20",
+    "geojson_file": "delhi_metro_parcels.geojson"
+  },
+  {
+    "id": "LDH-REDEV",
+    "name": "Ludhiana Junction Railway Station Redevelopment",
+    "type": "Railway Station & Concourse Redevelopment",
+    "state": "Punjab",
+    "district": "Ludhiana",
+    "total_length_km": 0,
+    "total_parcels": 25,
+    "total_area_hectares": 18.7,
+    "description": "Ludhiana Junction Station redevelopment corridor covering multi-level parking, skywalks, and circulating road expansion.",
+    "status": "In Progress",
+    "start_date": "2024-06-01",
+    "geojson_file": "ludhiana_railway_renovation.geojson"
+  }
+]

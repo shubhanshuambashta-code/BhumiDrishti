@@ -1,0 +1,82 @@
+version: '3.9'
+
+services:
+  # ─── PostgreSQL + PostGIS ─────────────────────────────────────────────────
+  db:
+    image: postgis/postgis:15-3.3
+    container_name: bhumidrishti-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-bhumidrishti}
+      POSTGRES_USER: ${POSTGRES_USER:-bhumidrishti}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bhumidrishti_dev_2026}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/migrations:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-bhumidrishti}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── Node.js Backend ──────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: bhumidrishti-backend
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DATABASE_URL: postgresql://${POSTGRES_USER:-bhumidrishti}:${POSTGRES_PASSWORD:-bhumidrishti_dev_2026}@db:5432/${POSTGRES_DB:-bhumidrishti}
+      ML_SERVICE_URL: http://ml:8001
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
+      DATA_PATH: /app/data
+    volumes:
+      - ./data:/app/data:ro
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3001/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  # ─── Python ML Service ────────────────────────────────────────────────────
+  ml:
+    build:
+      context: ./ml
+      dockerfile: Dockerfile
+    container_name: bhumidrishti-ml
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./ml/models:/app/models
+      - ./ml/data:/app/data
+    environment:
+      MODEL_PATH: /app/models/risk_classifier.pkl
+      DISCLAIMER: "Prototype Demonstration - Trained on synthetic data"
+
+  # ─── React Frontend ───────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: bhumidrishti-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    environment:
+      REACT_APP_API_URL: http://localhost:3001/api
+
+volumes:
+  pgdata:
+
+networks:
+  default:
+    name: bhumidrishti-network

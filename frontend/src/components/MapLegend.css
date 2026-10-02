@@ -1,0 +1,102 @@
+/* Leaflet map legend */
+.map-legend {
+  background: rgba(15,23,42,0.92);
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: 'Inter', sans-serif;
+  min-width: 150px;
+  backdrop-filter: blur(6px);
+}
+.legend-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+.legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.legend-total {
+  font-size: 11px;
+  color: #475569;
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid #334155;
+}
+
+/* Progress bar */
+.progress-bar-small {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #94a3b8;
+  min-width: 120px;
+}
+.progress-bar-small .progress-fill {
+  flex: 1;
+  height: 5px;
+  background: #22c55e;
+  border-radius: 3px;
+}
+.progress-bar-small::before {
+  content: '';
+  flex: 1;
+  height: 5px;
+  background: #1e293b;
+  border-radius: 3px;
+  position: relative;
+}
+
+/* Priority list on dashboard */
+.priority-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.priority-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #0f172a;
+  border-left: 3px solid;
+}
+.priority-item.Critical { border-color: #ef4444; }
+.priority-item.High     { border-color: #f97316; }
+.priority-item.Monitor  { border-color: #f59e0b; }
+
+.priority-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.Critical .priority-badge { background: rgba(239,68,68,0.15); color: #ef4444; }
+.High .priority-badge     { background: rgba(249,115,22,0.15); color: #f97316; }
+.Monitor .priority-badge  { background: rgba(245,158,11,0.15); color: #f59e0b; }
+
+.priority-content { flex: 1; min-width: 0; }
+.priority-id { font-size: 12px; font-weight: 700; color: #f1f5f9; font-family: 'JetBrains Mono', monospace; }
+.priority-project { font-size: 11px; color: #64748b; }
+.priority-factors { font-size: 11px; color: #475569; }
+.priority-score { font-size: 18px; font-weight: 800; }
